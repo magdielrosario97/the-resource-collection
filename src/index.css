@@ -1,13 +1,401 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+code {
+   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* {
+   font-family: "JetBrains Mono", monospace;
+   text-decoration: none;
+   margin: 0;
+   /* text-align: center; */
+   width: auto;
+}
+
+.reactive {
+   text-align: center;
+}
+
+.Head {
+   background-color: #f79226;
+   text-align: -webkit-center;
+   padding-bottom: 10px;
+}
+
+#title {
+   font-weight: 400;
+   text-decoration: white underline wavy 3px;
+   text-shadow: black;
+   color: white;
+   margin: 0%;
+   font-size: 45px;
+}
+
+#OLU {
+   font-weight: 600;
+
+   font-style: italic;
+   color: white;
+   margin: 0%;
+}
+
+.nav {
+   display: grid;
+   text-transform: uppercase;
+   grid-template-columns: 1fr 1fr 1fr 1fr;
+   text-align: center;
+   background-color: #f79226;
+   font-size: 16px;
+}
+
+.nav > a {
+   display: grid;
+   align-items: center;
+   cursor: pointer;
+   background-color: #f79226;
+   transition: background-color 0.5s ease;
+   color: white;
+   height: 35px;
+}
+
+.nav > button {
+   cursor: pointer;
+   border: none;
+   background-color: #f79226;
+   transition: background-color 0.5s ease;
+   color: white;
+   height: auto;
+   font-size: 16px;
+   text-transform: uppercase;
+   padding: 0;
+}
+
+.nav > a:hover,
+button:hover {
+   background-color: rgb(255, 182, 47);
+}
+
+.welcome {
+   text-align: center;
+   margin: 5px;
+   font-size: 25px;
+}
+
+.loginContainer {
+   color: white;
+   position: absolute;
+   width: -webkit-fill-available;
+   height: -webkit-fill-available;
+   background-color: #f79226;
+   text-align: center;
+}
+
+#loginWelc {
+   width: min-content;
+   position: relative;
+   font-size: 40px;
+   top: 40%;
+   left: 0;
+   overflow: hidden;
+   border-right: 0.15em solid rgb(0, 0, 0);
+   white-space: nowrap;
+   margin: 0 auto;
+   letter-spacing: 0.15em;
+   animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+   from {
+      width: 0;
+   }
+   to {
+      width: 100%;
+   }
+}
+
+@keyframes blink-caret {
+   from,
+   to {
+      border-color: transparent;
+   }
+   50% {
+      border-color: rgb(255, 255, 255);
+   }
+}
+
+#loginMsg {
+   position: relative;
+   top: 40%;
+   left: 0;
+   font-size: 20px;
+}
+
+#loginBtn {
+   cursor: pointer;
+   color: #f79226;
+   position: relative;
+   top: 45%;
+   left: 0;
+   width: 300px;
+   height: 80px;
+   border-radius: 15px;
+   border: none;
+   background-color: rgba(255, 255, 255, 0.699);
+   font-size: 15px;
+   box-shadow: white 0px 0px 20px 8px;
+   transition: background-color 1s ease;
+}
+
+#loginBtn:hover {
+   background-color: white;
+}
+
+#loadingMsg {
+   position: absolute;
+   font-size: 30px;
+   top: 50%;
+   width: -webkit-fill-available;
+}
+.welcome {
+   animation-name: floating;
+   animation-duration: 3s;
+   animation-iteration-count: infinite;
+   animation-timing-function: ease-in-out;
+   margin-left: 30px;
+   margin-top: 5px;
+}
+
+@keyframes floating {
+   0% {
+      transform: translate(0, 0px);
+   }
+   50% {
+      transform: translate(0px, 8px);
+   }
+   100% {
+      transform: translate(0, -0px);
+   }
+}
+
+.createBtn {
+   border: none;
+   background-color: #f79226;
+   border-radius: 5px;
+   font-size: 18px;
+   color: white;
+   transition: box-shadow 0.5s ease;
+   align-self: center;
+}
+
+.createBtn:hover {
+   cursor: pointer;
+   background-color: rgb(255, 185, 56);
+   box-shadow: #f79226 0px 0px 15px 1px;
+   transition: background-color 0.5s ease;
+}
+
+.resourceContainer {
+   display: grid;
+   grid-template-columns: 1fr 1fr 1fr 1fr;
+   gap: 3px;
+   width: auto;
+}
+
+.resourceCard {
+   display: flex;
+   flex-flow: column;
+   color: white;
+   background-color: #f79226;
+   text-align: -webkit-center;
+   margin: 10px;
+   padding: 5px;
+   border-radius: 20px;
+   font-size: 15px;
+   gap: 10px;
+   box-shadow: rgb(182 182 182) 0px 7px 9px 6px;
+}
+
+.resourceTitle {
+   text-transform: uppercase;
+}
+
+.cohort {
+   align-self: center;
+   color: #f79226;
+   width: 100px;
+   background-color: white;
+   border-radius: 10px;
+   padding: 4px 8px 4px 8px;
+   text-decoration: none;
+   font-size: 18px;
+}
+
+.url {
+   width: auto;
+   height: 400px;
+   font-size: 12px;
+   margin-block-start: auto;
+}
+
+.creator {
+   margin-block-start: auto;
+   font-size: 15px;
+}
+
+.createModulo {
+   margin-top: 15px;
+}
+
+form {
+   display: grid;
+   justify-content: center;
+   gap: 5px;
+}
+
+label {
+   text-align: left;
+}
+
+input[type="text"] {
+   min-width: 500px;
+   height: 30px;
+   text-align: left;
+   border-radius: 8px;
+   border: solid rgb(186, 182, 182) 2px;
+}
+
+input[type="text"]:focus {
+   background-color: rgb(227, 227, 227);
+}
+
+#crtBtn,
+#cnlBtn {
+   background-color: #f79226;
+   border: none;
+   font-size: 18px;
+   margin: 10px;
+   border-radius: 6px;
+   color: white;
+   text-transform: uppercase;
+   transition: box-shadow 1s ease;
+}
+
+#crtBtn:hover,
+#cnlBtn:hover {
+   cursor: pointer;
+   box-shadow: #f79226 0px 0px 8px 3px;
+}
+
+.about {
+   display: grid;
+   text-align: left;
+   padding: 10px;
+   margin: 10px;
+}
+
+.sign {
+   margin-top: 10px;
+   font-weight: bold;
+}
+
+.socials > a {
+   font-size: 50px;
+   color: #f79226;
+   margin: 10px;
+}
+
+.sglPD {
+   text-align: -webkit-center;
+}
+
+.singlePost {
+   display: flex;
+   flex-flow: column;
+   color: white;
+   background-color: #f79226;
+   text-align: -webkit-center;
+   margin: 10px;
+   padding: 5px;
+   border-radius: 20px;
+   font-size: 15px;
+   box-shadow: rgb(182 182 182) 0px 7px 9px 6px;
+   width: 350px;
+}
+
+#sglExt {
+   background: none;
+   border: none;
+   width: 30px;
+   border-radius: 20px;
+   place-self: end;
+   color: white;
+   font-size: 25px;
+   margin-right: 5px;
+   transition: text-shadow 1s ease;
+   transition: color 1s ease;
+}
+
+#sglExt:hover {
+   cursor: pointer;
+   color: rgb(216, 215, 215);
+   text-shadow: white 0 0 20px;
+}
+
+.userPostContainer {
+   display: grid;
+   grid-template-columns: 1fr 1fr 1fr 1fr;
+   gap: 3px;
+   width: auto;
+}
+
+#edtBtn {
+   border: none;
+   background: none;
+   color: white;
+   font-size: 30px;
+   transition: color 1s ease;
+}
+
+#edtBtn:hover {
+   cursor: pointer;
+   color: lightgray;
+}
+
+#sbtEdt,
+#delPst,
+#cclEdt {
+   background-color: #f79226;
+   border: none;
+   font-size: 18px;
+   margin: 10px;
+   border-radius: 6px;
+   color: white;
+   text-transform: uppercase;
+   transition: box-shadow 1s ease;
+}
+
+#sbtEdt:hover,
+#delPst:hover,
+#cclEdt:hover {
+   cursor: pointer;
+   box-shadow: #f79226 0px 0px 8px 3px;
+}
+
+#prfpic {
+   border-radius: 60px;
+}
+
+#resiliency {
+   font-weight: bold;
+   color: #f79226;
+}
+
+#mhLogo {
+   font-size: 35px;
+}
+
+#gLogo {
+   position: absolute;
+   height: auto;
+   width: 150px;
+   left: 46%;
+   top: 70%;
 }
