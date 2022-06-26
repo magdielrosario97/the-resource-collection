@@ -22,7 +22,7 @@ class Home extends React.Component {
 
    render() {
       const getSinglePost = (e) => {
-         fetch(`http://localhost:3002/${e}`)
+         fetch(`https://the-resource-collection.herokuapp.com/${e}`)
             .then((res) => res.json())
             .then((post) => {
                this.setState({ singlePost: post });
@@ -48,7 +48,7 @@ class Home extends React.Component {
                   <h3>{post.title}</h3>
                   <div>{post.created_at.slice(0, 10)}</div>
                   <p>{post.body}</p>
-                  <a href={post.link}>{post.link}</a>
+
                   {/* <LinkPreview
                      className="url"
                      descriptionLength="20"

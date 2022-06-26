@@ -19,7 +19,7 @@ class App extends React.Component {
    };
 
    componentDidMount() {
-      fetch("http://localhost:3002/")
+      fetch("https://the-resource-collection.herokuapp.com/")
          .then((res) => res.json())
          .then((posts) => {
             console.log();
@@ -34,7 +34,7 @@ class App extends React.Component {
 
    componentDidUpdate(prevState) {
       if (this.state.resources !== prevState) {
-         fetch(`http://localhost:3002/`)
+         fetch(`https://the-resource-collection.herokuapp.com/`)
             .then((res) => res.json())
             .then((posts) => this.setState({ resources: posts, loading: false }));
       }

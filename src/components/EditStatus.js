@@ -1,110 +1,89 @@
 import React from "react";
+import { withAuth0 } from "@auth0/auth0-react";
+import EditStatus from "./EditStatus";
+import { FaCog } from "react-icons/fa";
 
-class EditStatus extends React.Component {
+class Profile extends React.Component {
    constructor(props) {
       super(props);
       this.state = {
-         id: this.props.post,
-         title: null,
-         message: null,
-         link: null,
+         userPosts: null,
+         loading: true,
+         loadingMessage: "Please wait...",
+         edit: false,
+         postID: null,
       };
-      this.handleInputChange = this.handleInputChange.bind(this);
       this.returnToProfile = this.returnToProfile.bind(this);
    }
 
-   handleInputChange(event) {
-      const target = event.target;
-      const value = target.value;
-      const name = target.name;
-
-      this.setState({
-         [name]: value,
-      });
-   }
-
    returnToProfile(event) {
-      this.props.profile(event);
+      this.setState({ edit: false, postID: null });
       event.preventDefault();
    }
 
-   // DELETES POST
-   deletePost = async (id) => {
-      await fetch(`http://localhost:3002/delete/${id}`, {
-         method: "DELETE",
-         headers: { "Content-Type": "application/json" },
-      });
-      this.returnToProfile();
-   };
-
-   // GRABS POST INFO FROM DB TO BE EDITED
    componentDidMount() {
-      fetch(`http://localhost:3002/${this.props.post}`)
+      const user = this.props.auth0.user;
+      fetch(`https://the-resource-collection.herokuapp.com/${user.nickname}/posts`)
          .then((res) => res.json())
-         .then((post) => {
-            console.log(post);
-            this.setState({
-               title: post.title,
-               message: post.body,
-               link: post.link,
-            });
-         });
+         .then((posts) => this.setState({ userPosts: posts, loading: false }));
    }
 
-   // SENDS EDIT TO DB
-   editResource = async (id) => {
-      const editedPost = {
-         title: this.state.title,
-         body: this.state.message,
-         link: this.state.link,
-      };
-
-      await fetch(`http://localhost:3002/edit/${id}`, {
-         method: "PATCH",
-         headers: { "Content-Type": "application/json" },
-         body: JSON.stringify(editedPost),
-      });
-      this.returnToProfile();
-   };
+   componentDidUpdate(prevState) {
+      if (this.state.userPosts !== prevState) {
+         const user = this.props.auth0.user;
+         fetch(`https://the-resource-collection.herokuapp.com/${user.nickname}/posts`)
+            .then((res) => res.json())
+            .then((posts) => this.setState({ userPosts: posts, loading: false }));
+      }
+   }
 
    render() {
+      const user = this.props.auth0.user;
+
+      if (this.state.loading) {
+         return <h1>{this.state.loadingMessage}</h1>;
+      }
+      if (this.state.edit) {
+         return <EditStatus post={this.state.postID} profile={this.returnToProfile} />;
+      }
       return (
-         <div className="editModulo">
-            <h1>Made mistakes? No worries!</h1>
-            <form onSubmit={this.returnToProfile}>
-               <label>Title</label>
-               <input name="title" type="text" value={this.state.title} onChange={this.handleInputChange} />
-
-               <label>Message</label>
-               <input name="message" type="text" value={this.state.message} onChange={this.handleInputChange} />
-
-               <label>Link</label>
-               <input name="link" type="text" value={this.state.link} onChange={this.handleInputChange} />
-            </form>
-            <div>
-               <button
-                  id="sbtEdt"
-                  onClick={() => {
-                     this.editResource(this.state.id);
-                  }}
-               >
-                  Edit
-               </button>
-               <button
-                  id="delPst"
-                  onClick={() => {
-                     this.deletePost(this.state.id);
-                  }}
-               >
-                  Delete
-               </button>
-               <button id="cclEdt" onClick={this.returnToProfile}>
-                  Cancel
-               </button>
+         <>
+            <div className="profile">
+               <h3>My Profile</h3>
+               <img id="prfpic" src={user.picture} alt={user.name} />
+               <h4>{user.email === user.name ? "" : user.name}</h4>
+               <h4>{user.nickname}</h4>
+               <h4>{user.email}</h4>
             </div>
-         </div>
+            <div className="userPostContainer">
+               {this.state.userPosts.map((post) => {
+                  return (
+                     <div className="resourceCard" key={post.id} id={post.id}>
+                        <div className="cohort">{post.cohort}</div>
+                        <h3 className="resourceTitle">{post.title}</h3>
+                        <div>{post.created_at.slice(0, 10)}</div>
+                        <p>{post.body}</p>
+                        <a href={post.link} target="_blank" rel="noreferrer">
+                           {post.link}
+                        </a>
+                        <div>Posted by {post.username}</div>
+                        <div>
+                           <button
+                              id="edtBtn"
+                              onClick={() => {
+                                 this.setState({ edit: true, postID: post.id });
+                              }}
+                           >
+                              <FaCog />
+                           </button>
+                        </div>
+                     </div>
+                  );
+               })}
+            </div>
+         </>
       );
    }
 }
 
-export default EditStatus;
+export default withAuth0(Profile);

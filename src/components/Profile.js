@@ -23,7 +23,7 @@ class Profile extends React.Component {
 
    componentDidMount() {
       const user = this.props.auth0.user;
-      fetch(`http://localhost:3002/${user.nickname}/posts`)
+      fetch(`https://the-resource-collection.herokuapp.com/${user.nickname}/posts`)
          .then((res) => res.json())
          .then((posts) => this.setState({ userPosts: posts, loading: false }));
    }
@@ -31,7 +31,7 @@ class Profile extends React.Component {
    componentDidUpdate(prevState) {
       if (this.state.userPosts !== prevState) {
          const user = this.props.auth0.user;
-         fetch(`http://localhost:3002/${user.nickname}/posts`)
+         fetch(`https://the-resource-collection.herokuapp.com/${user.nickname}/posts`)
             .then((res) => res.json())
             .then((posts) => this.setState({ userPosts: posts, loading: false }));
       }

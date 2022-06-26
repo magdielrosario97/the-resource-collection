@@ -41,7 +41,7 @@ class CreatePost extends React.Component {
 
       if (this.state.title === "" || this.state.link === "" || this.state.cohort === "") {
       } else {
-         await fetch("http://localhost:3002/", {
+         await fetch("https://the-resource-collection.herokuapp.com/", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(newPost),

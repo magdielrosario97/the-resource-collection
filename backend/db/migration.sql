@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS mcsp_resources;
+-- DROP DATABASE IF EXISTS mcsp_resources;
 
-CREATE DATABASE mcsp_resources;
-\c mcsp_resources
+-- CREATE DATABASE mcsp_resources;
+-- \c mcsp_resources
 DROP TABLE IF EXISTS post;
 
 CREATE TABLE post(
@@ -14,4 +14,4 @@ CREATE TABLE post(
     username TEXT NOT NULL
 );
 
-\i seed.sql
+-- \i seed.sql
